@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id         String       @id @default(uuid())
+  name       String
+  email      String       @unique
+  rollNumber String       @unique
+  class      String
+  attendance Attendance[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  @@index([class])
+}
+
+model Staff {
+  id         String   @id @default(uuid())
+  name       String
+  email      String   @unique
+  role       String
+  department String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Attendance {
+  id        String   @id @default(uuid())
+  studentId String
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  date      DateTime
+  status    String   // "Present" or "Absent"
+  createdAt DateTime @default(now())
+
+  @@unique([studentId, date])
+  @@index([date])
+}
+
+model Admission {
+  id             String   @id @default(uuid())
+  studentName    String
+  grade          String
+  parentEmail    String
+  phone          String
+  previousSchool String?
+  status         String   @default("Pending") // Pending, Reviewed, Approved, Rejected
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model AdminUser {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("admin_users")
+}
+
+model Fee {
+  id         String   @id @default(uuid())
+  medium     String   // "semi-english" or "english"
+  class      String   // e.g., "8th Standard"
+  admission  String   // e.g., "₹1,350"
+  regOther   String   // e.g., "₹2,500"
+  monthly    String   // e.g., "₹1,350"
+  term       String   // e.g., "₹2,700"
+  total      String   // e.g., "₹22,750"
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("fees")
+}
+
