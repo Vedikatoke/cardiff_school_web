@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: "https://cardiff-school-web.onrender.com",
   timeout: 30000, // 30 second timeout
 });
 
