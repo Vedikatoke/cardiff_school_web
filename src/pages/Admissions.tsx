@@ -28,7 +28,7 @@ export default function Admissions() {
     e.preventDefault();
     setLoading(true);
     try {
-      await api.post('/admissions', {
+      await api.post('/api/admissions', {
         studentName: formData.studentName,
         grade: formData.grade,
         parentEmail: formData.parentEmail,

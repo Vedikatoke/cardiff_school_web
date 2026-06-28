@@ -33,7 +33,7 @@ export default function Fees() {
   useEffect(() => {
     async function loadFees() {
       try {
-        const response = await api.get('/fees');
+        const response = await api.get('/api/fees');
         if (response.data && response.data.length > 0) {
           setFees(response.data);
         } else {
