@@ -1,8 +1,0 @@
-{
-  "name": "Cardiff International School",
-  "description": "Premium school website providing high-standard education, specialized for Standards 8 to 10, with an urban campus and co-educational environment.",
-  "requestFramePermissions": [
-    "geolocation"
-  ],
-  "majorCapabilities": []
-}
