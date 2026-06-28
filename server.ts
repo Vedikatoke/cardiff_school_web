@@ -44,7 +44,7 @@ function getClerkClient() {
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = Number(process.env.PORT) || 3000;
 
   // Seed initial data if database is empty
   const seedDatabase = async () => {
