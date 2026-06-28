@@ -661,20 +661,23 @@ async function startServer() {
     }
   });
 
+  
+  
+
   // --- Vite / Frontend Setup ---
-  if (process.env.NODE_ENV !== "production") {
-    const vite = await createViteServer({
-      server: { middlewareMode: true },
-      appType: "spa",
+if (process.env.NODE_ENV !== "production") {
+  const vite = await createViteServer({
+    server: { middlewareMode: true },
+    appType: "spa",
+  });
+  app.use(vite.middlewares);
+} else {
+  app.get("/", (req, res) => {
+    res.json({
+      status: "Backend is running"
     });
-    app.use(vite.middlewares);
-  } else {
-    const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath));
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
-    });
-  }
+  });
+}
 
   // Apply error handler LAST
   app.use(errorHandler);
